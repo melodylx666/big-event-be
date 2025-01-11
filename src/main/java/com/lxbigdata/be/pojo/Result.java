@@ -2,10 +2,12 @@ package com.lxbigdata.be.pojo;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 //统一响应结果
 //当接口文档中要求的响应数据格式完全一样的时候，则可以统一使用result
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Result<T> {
