@@ -4,8 +4,13 @@ import com.lxbigdata.be.mapper.UserMapper;
 import com.lxbigdata.be.pojo.User;
 import com.lxbigdata.be.service.UserService;
 import com.lxbigdata.be.utils.Md5Util;
+import com.lxbigdata.be.utils.ThreadLocalUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
+import static java.time.LocalDateTime.now;
 
 /**
  * ClassName: UserServiceImpl
@@ -32,4 +37,27 @@ public class UserServiceImpl implements UserService {
         //添加用户
         userMapper.add(username,md5String);
     }
+
+    @Override
+    public void update(User user) {
+        user.setUpdateTime(now());
+        userMapper.update(user);
+    }
+
+    @Override
+    public void updateAvatar(String avatarUrl) {
+        //由于无法从其他地方获取用户信息，只能从ThreadLocal中获取用户信息
+        var map = ThreadLocalUtil.<Map<String, Object>>get();
+        var userId = (Integer) map.get("id");
+        userMapper.updateAvatar(avatarUrl,userId);
+    }
+
+    @Override
+    public void updatePwd(String new_pwd) {
+        var map = ThreadLocalUtil.<Map<String, Object>>get();
+        var userId = (Integer) map.get("id");
+        userMapper.updatePwd(Md5Util.getMD5String(new_pwd),userId);
+    }
+
+
 }

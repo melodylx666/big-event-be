@@ -1,3 +1,40 @@
+### 更新用户密码
+PATCH http://localhost:8080/user/updatePwd
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+{
+  "old_pwd": "123456",
+  "new_pwd": "234567",
+  "re_pwd": "234567"
+}
+
+
+
+
+###
+PUT http://localhost:8080/user/update
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+{
+  "id": 4,
+  "username": "wangba",
+  "nickname": "wb",
+  "email": "wangba@qq.com"
+}
+
+
+###
+GET http://localhost:8080/user/userInfo
+Accept: application/json
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+###
+
+###
 POST http://localhost:8080/user/login
 Content-Type: application/x-www-form-urlencoded
 

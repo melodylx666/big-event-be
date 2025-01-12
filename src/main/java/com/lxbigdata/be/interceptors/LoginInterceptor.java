@@ -2,6 +2,7 @@ package com.lxbigdata.be.interceptors;
 
 import com.lxbigdata.be.pojo.Result;
 import com.lxbigdata.be.utils.JwtUtil;
+import com.lxbigdata.be.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -26,10 +27,18 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         try{
             var stringObjectMap = JwtUtil.parseToken(token);
+            //将用户信息存入ThreadLocal,这里一个用户线程只用ThreadLocal存储了一个变量
+            ThreadLocalUtil.set(stringObjectMap);
             return true;
         }catch (Exception e){
             response.setStatus(401);
             return false;
         }
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        //清除ThreadLocal中的数据,防止内存泄露
+        ThreadLocalUtil.remove();
     }
 }
