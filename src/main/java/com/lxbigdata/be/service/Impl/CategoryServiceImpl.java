@@ -57,4 +57,12 @@ public class CategoryServiceImpl implements CategoryService {
         var userId = (Integer)map.get("id");
         categoryMapper.update(category,userId);
     }
+
+    @Override
+    public void delete(Integer id) {
+        var map = ThreadLocalUtil.<Map<String, Object>>get();
+        var userId = (Integer)map.get("id");
+        categoryMapper.delete(id,userId);
+
+    }
 }

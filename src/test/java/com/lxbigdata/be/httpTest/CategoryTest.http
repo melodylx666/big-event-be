@@ -37,3 +37,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVz
   "categoryName": "娱乐",
   "categoryAlias": "yul"
 }
+
+
+### 删除分类
+DELETE http://localhost:8080/category?id=2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4

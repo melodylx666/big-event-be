@@ -9,6 +9,8 @@ import com.lxbigdata.be.utils.ThreadLocalUtil;
 import jakarta.annotation.Resource;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.messaging.simp.user.UserRegistryMessageHandler;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * ClassName: UserController
@@ -32,6 +35,8 @@ public class UserController {
     // 注入service
     @Resource
     private UserService userService;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     @PostMapping("/register")
     public Result register(
@@ -55,8 +60,6 @@ public class UserController {
             @Pattern(regexp = "^\\S{5,16}$") String username,
             @Pattern(regexp = "^\\S{5,16}$") String password
     ) {
-        System.out.println(username);
-        System.out.println(password);
         User loginUser = userService.findByUserName(username);
         System.out.println(loginUser);
         if (loginUser == null) {
@@ -71,6 +74,8 @@ public class UserController {
         map.put("username", loginUser.getUsername());
 
         String token = JwtUtil.genToken(map);
+        //把token同时存储到redis中,此处token作为键与值同时存储
+        stringRedisTemplate.opsForValue().set(token, token, 12, TimeUnit.HOURS);
         return Result.success(token);
     }
 
@@ -88,41 +93,51 @@ public class UserController {
         var user = userService.findByUserName(username);
         return Result.success(user);
     }
+
     @PutMapping("/update")
-    public Result update(@RequestBody @Validated User user){
+    public Result update(@RequestBody @Validated User user) {
         userService.update(user);
         return Result.success();
     }
 
     @PatchMapping("/updateAvatar")
-    public Result updateAvatar(@RequestParam @URL String avatarUrl){
+    public Result updateAvatar(@RequestParam @URL String avatarUrl) {
         userService.updateAvatar(avatarUrl);
         return Result.success();
     }
 
     //此处这里因为上传的数据不是User，则需要使用其他格式接受
     @PatchMapping("/updatePwd")
-    public Result updatePwd(@RequestBody Map<String,String> params){
+    public Result updatePwd(@RequestBody Map<String, String> params,
+                            @RequestHeader(name = "Authorization") String token
+    ) {
         //手动校验参数，这里validation提供的注解无法满足要求，需要手动校验
         String old_pwd = params.get("old_pwd");
         String new_pwd = params.get("new_pwd");
         String re_pwd = params.get("re_pwd");
 
-        if(!StringUtils.hasLength(old_pwd) || !StringUtils.hasLength(new_pwd) || !StringUtils.hasLength(re_pwd)){
+        if (!StringUtils.hasLength(old_pwd) || !StringUtils.hasLength(new_pwd) || !StringUtils.hasLength(re_pwd)) {
             return Result.error("缺少必要的参数");
         }
         //原密码是否正确
         String username = ThreadLocalUtil.<Map<String, Object>>get().get("username").toString();
         User loginUser = userService.findByUserName(username);
-        if(!Md5Util.getMD5String(old_pwd).equals(loginUser.getPassword())){
+        if (!Md5Util.getMD5String(old_pwd).equals(loginUser.getPassword())) {
             return Result.error("原密码错误");
         }
         //确认密码是否一致
-        if(!new_pwd.equals(re_pwd)){
+        if (!new_pwd.equals(re_pwd)) {
             return Result.error("两次密码不一致");
         }
         //进行更新
         userService.updatePwd(new_pwd);
+
+        //删除redis中的token
+        var ops = stringRedisTemplate.opsForValue();
+        Boolean delete = ops.getOperations().delete(token);
+        if(!delete){
+            return Result.error("token已失效");
+        }
         return Result.success();
     }
 }

@@ -30,4 +30,7 @@ public interface CategoryMapper {
     @Update("update category set category_name=#{category.categoryName},category_alias=#{category.categoryAlias},update_time=#{category.updateTime} " +
             "where id=#{category.id} and create_user=#{userId}")
     void update( Category category,  Integer userId);
+
+    @Delete("delete from category where id=#{id} and create_user=#{userId}")
+    void delete(Integer id, Integer userId);
 }

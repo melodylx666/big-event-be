@@ -1,0 +1,25 @@
+### curl -X POST -H "Expect:" -F "jarfile=@path/to/flink-job.jar" http://hostname:port/jars/upload
+POST http://localhost:9091/jars/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="jarfile"; filename="F:\workspace_scala\stream_rule_flink\rule_minning\target\rule_minning-1.0-SNAPSHOT.jar"
+
+--WebAppBoundary--
+
+###
+
+
+
+### Get config
+GET http://localhost:9091/config
+Accept: application/json
+
+### GET datasets
+GET http://localhost:9091/datasets
+Accept: application/json
+
+### 查看上传的jar包
+GET http://localhost:9091/jars
+
+

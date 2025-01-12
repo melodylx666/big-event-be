@@ -1,0 +1,61 @@
+### 增加文章，其中封面图暂时为空
+POST http://localhost:8080/article
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjc3NDc2Mn0.Mf36w81bPvw9UrSTuj4oTp46hfwKgdzCvt6b6qBDPyI
+
+{
+  "title": "陕西旅游攻略",
+  "content": "兵马俑,华清池,法门寺,华山...爱去哪去哪...",
+  "coverImg": "",
+  "state": "草稿",
+  "categoryId": 1
+}
+
+
+### 测试自定义校验注解State
+POST http://localhost:8080/article
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjc3NDc2Mn0.Mf36w81bPvw9UrSTuj4oTp46hfwKgdzCvt6b6qBDPyI
+
+{
+"title": "山西旅游攻略",
+"content": "晋祠，五台山...",
+"coverImg": "",
+"state": "草稿",
+"categoryId": 1
+}
+
+###分页查询
+
+GET  http://localhost:8080/article?pageNum=1&pageSize=3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+###分页查询 + 动态sql
+GET  http://localhost:8080/article?pageNum=1&pageSize=3&categoryId=1&state=草稿
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+
+### 根据id查询文章
+GET  http://localhost:8080/article/detail?id=2
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjc3NDc2Mn0.Mf36w81bPvw9UrSTuj4oTp46hfwKgdzCvt6b6qBDPyI
+
+
+### 更新文章
+PUT  http://localhost:8080/article
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjc3NDc2Mn0.Mf36w81bPvw9UrSTuj4oTp46hfwKgdzCvt6b6qBDPyI
+
+{
+  "id":2,
+  "title": "北京旅游攻略",
+  "content": "天安门,颐和园,鸟巢,长城...爱去哪去哪...",
+  "coverImg": "",
+  "state": "已发布",
+  "categoryId": 1
+}
+
+
+### 删除文章
+DELETE  http://localhost:8080/article?id=4
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjc3NDc2Mn0.Mf36w81bPvw9UrSTuj4oTp46hfwKgdzCvt6b6qBDPyI
+
