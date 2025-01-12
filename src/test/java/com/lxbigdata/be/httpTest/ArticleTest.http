@@ -1,0 +1,35 @@
+### 增加文章，其中封面图暂时为空
+POST http://localhost:8080/article
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+{
+  "title": "陕西旅游攻略",
+  "content": "兵马俑,华清池,法门寺,华山...爱去哪去哪...",
+  "coverImg": "",
+  "state": "草稿",
+  "categoryId": 1
+}
+
+
+### 测试自定义校验注解State
+POST http://localhost:8080/article
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+{
+"title": "陕西旅游攻略",
+"content": "兵马俑,华清池,法门寺,华山...爱去哪去哪...",
+"coverImg": "",
+"state": "",
+"categoryId": 1
+}
+
+###分页查询
+
+GET  http://localhost:8080/article?pageNum=1&pageSize=3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+###分页查询 + 动态sql
+GET  http://localhost:8080/article?pageNum=1&pageSize=3&categoryId=1&state=草稿
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
