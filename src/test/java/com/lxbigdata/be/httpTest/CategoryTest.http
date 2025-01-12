@@ -1,0 +1,39 @@
+### 创建分类
+POST http://localhost:8080/category
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+{
+  "categoryName": "人文",
+  "categoryAlias": "rw"
+}
+
+### 创建分类
+POST http://localhost:8080/category
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+{
+  "categoryName": "娱乐",
+  "categoryAlias": "yl"
+}
+
+### 获取分类列表
+GET http://localhost:8080/category
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+### 获取具体的分类信息
+GET http://localhost:8080/category/detail?id=1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+
+### 更新分类信息
+PUT http://localhost:8080/category
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGFpbXMiOnsiaWQiOjQsInVzZXJuYW1lIjoid2FuZ2JhIn0sImV4cCI6MTczNjY5MjU3N30.hwS_vogajc_WGXJGchWl6GbHNxk1GwhWN4CgyMCJ8u4
+
+{
+  "id": 2,
+  "categoryName": "娱乐",
+  "categoryAlias": "yul"
+}
