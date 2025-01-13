@@ -59,4 +59,27 @@ public class ArticleServiceImpl implements ArticleService {
 
         return pageBean;
     }
+
+    @Override
+    public Article findById(Integer id) {
+        var map = ThreadLocalUtil.<Map<String,Object>>get();
+        Integer userId = (Integer) map.get("id");
+        Article article = articleMapper.findById(id,userId);
+        return article;
+    }
+
+    @Override
+    public void update(Article article) {
+        var map = ThreadLocalUtil.<Map<String,Object>>get();
+        Integer userId = (Integer) map.get("id");
+        articleMapper.update(article,userId);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        var map = ThreadLocalUtil.<Map<String,Object>>get();
+        Integer userId = (Integer) map.get("id");
+        articleMapper.delete(id,userId);
+    }
+
 }

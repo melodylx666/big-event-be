@@ -42,4 +42,21 @@ public class ArticleController {
 
     }
 
+    @GetMapping("/detail")
+    public Result<Article> detail(@RequestParam Integer id){
+        Article article = articleService.findById(id);
+        return Result.success(article);
+    }
+
+    @PutMapping
+    public Result update(@RequestBody @Validated Article article){
+        articleService.update(article);
+        return Result.success();
+    }
+
+    @DeleteMapping
+    public Result delete(@RequestParam Integer id){
+        articleService.delete(id);
+        return Result.success();
+    }
 }
